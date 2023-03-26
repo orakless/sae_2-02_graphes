@@ -1,7 +1,8 @@
 
 # SAE 2.02 : Graphes Orientés Valués
 
-Manipulation de graphes
+Manipulation de graphes. Projet de 4 élèves du groupe 103.
+Chargé de TP: [Camille KURTZ](https://github.com/ckurtz)
 
 ## Auteurs
 
