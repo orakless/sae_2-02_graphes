@@ -4,12 +4,12 @@ import java.util.*;
 
 import static java.util.Map.*;
 
-public class GrapheHHadj implements IGraphe {
+public class GrapheHHAdj implements IGraphe {
 private Map<String, Map<String , Integer>> hhadj;
 
 
 
-public GrapheHHadj(String graph){
+public GrapheHHAdj(String graph){
     this.hhadj = new HashMap<>();
     this.peupler(graph);
 }
