@@ -21,9 +21,15 @@ class IGrapheTest {
 			+ "I-H(10), "
 			+ "J:";
 	
-	@Test
+	/*@Test
 	void exo3_1Maths() {
 		GrapheLA gla = new GrapheLA(g31);
+		tester3_1(gla);
+	}*/
+
+	@Test
+	void exo3_1Maths_LAdj() {
+		GrapheLAdj gla = new GrapheLAdj(g31);
 		tester3_1(gla);
 	}
 	
