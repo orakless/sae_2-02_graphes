@@ -28,6 +28,12 @@ public class GrapheLAdj implements IGraphe {
 
     @Override
     public void ajouterArc(String source, String destination, Integer valeur) {
+        if(!this.ladj.containsKey(source)){
+            ajouterSommet(source);
+        }
+        if(!this.ladj.get(source).contains(destination)){
+            ajouterSommet(destination);
+        }
         ladj.get(source).add(new Arc(source, destination, valeur));
     }
 
