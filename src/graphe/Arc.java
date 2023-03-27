@@ -1,13 +1,17 @@
 package graphe;
 
 public class Arc {
-    private String noeudSource;
-
-    public String getNoeudDest() {
-        return noeudDest;
+    public String getSource() {
+        return source;
     }
 
-    private String noeudDest;
+    private String source;
+
+    public String getDestination() {
+        return destination;
+    }
+
+    private String destination;
 
     public int getValuation() {
         return valuation;
@@ -15,9 +19,9 @@ public class Arc {
 
     private int valuation;
 
-    public Arc(String noeudSource, String noeudDest, int valuation) {
-        this.noeudSource = noeudSource;
-        this.noeudDest = noeudDest;
+    public Arc(String source, String destination, int valuation) {
+        this.source = source;
+        this.destination = destination;
         this.valuation = valuation;
     }
 }

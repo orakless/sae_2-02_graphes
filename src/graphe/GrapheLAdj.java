@@ -42,7 +42,7 @@ public class GrapheLAdj implements IGraphe {
             throw new IllegalArgumentException("L'arc que vous essayez de supprimer n'existe pas");
         }
         for (int i = 0; i < ladj.get(source).size(); i++) {
-            if (ladj.get(source).get(i).getNoeudDest().equals(destination)) {
+            if (ladj.get(source).get(i).getDestination().equals(destination)) {
                 ladj.get(source).remove(i);
                 break;
             }
@@ -58,7 +58,7 @@ public class GrapheLAdj implements IGraphe {
     public List<String> getSucc(String sommet) {
         List<String> listeDesSucc = new ArrayList<>();
         for (Arc arc : ladj.get(sommet)) {
-            listeDesSucc.add(arc.getNoeudDest());
+            listeDesSucc.add(arc.getDestination());
         }
         return listeDesSucc;
     }
@@ -69,7 +69,7 @@ public class GrapheLAdj implements IGraphe {
             throw new IllegalArgumentException("L'arc demande n'existe pas");
         }
         for (Arc a : this.ladj.get(src)) {
-            if (a.getNoeudDest().equals(dest)) {
+            if (a.getDestination().equals(dest)) {
                 return a.getValuation();
             }
         }
@@ -85,7 +85,7 @@ public class GrapheLAdj implements IGraphe {
     public boolean contientArc(String src, String dest) {
         boolean result = false;
         for (Arc a : this.ladj.get(src)) {
-            if (a.getNoeudDest().equals(dest)){
+            if (a.getDestination().equals(dest)){
                 result = true;
                 break;
             }
@@ -105,9 +105,9 @@ public class GrapheLAdj implements IGraphe {
                 first = false;
             }
             List<Arc> arcs = new ArrayList<Arc>(this.ladj.get(sommet));
-            arcs.sort(Comparator.comparing(Arc::getNoeudDest));
+            arcs.sort(Comparator.comparing(Arc::getDestination));
             for (Arc arc : arcs) {
-                sb.append(sommet).append("-").append(arc.getNoeudDest());
+                sb.append(sommet).append("-").append(arc.getDestination());
                 sb.append("(").append(arc.getValuation()).append(")");
             }
 
