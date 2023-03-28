@@ -9,8 +9,13 @@ Chargé de TP: [Camille KURTZ](https://github.com/ckurtz)
 - [Eva G.](https://github.com/orakless)
 - [Rémi L.](https://github.com/remi-lem)
 - [Ali K.](https://github.com/Tacoao)
-- [Mya H.](https://github.com/*username*)
+- [Mya F.](https://github.com/G4iaa04)
 
 ## Synthèse du travail
 
-- Répartition du travail (partie 1)
+### Partie 1
+Nous nous sommes conjointement répartis les différents types de graphe à implémenter.
+- **Ali** se charge des graphes représentés par une table de hachage ([GrapheHHAdj.java](src/graphe/GrapheHHAdj.java))
+- **Rémi** se charge des graphes représentés par une liste d'adjacence ([GrapheLAdj.java](src/graphe/GrapheLAdj.java))
+- **Eva** se charge des graphes représentés par une matrice d'adjacence ([GrapheMAdj.java](src/graphe/GrapheMAdj.java))
+- **Mya** se charge des graphes représentés par une liste d'arcs ([GrapheLArc.java](src/graphe/GrapheLArcs.java))
