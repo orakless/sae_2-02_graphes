@@ -33,35 +33,36 @@ public class GrapheMAdj implements IGraphe {
         if (valeur < 0) throw new IllegalArgumentException("Valeur négative.");
         if (!indices.containsKey(source)) ajouterSommet(source);
         if (!indices.containsKey(destination)) ajouterSommet(source);
+        if (matrice[indices.get(source)][indices.get(destination)] > 0) throw new IllegalArgumentException("Arc déjà " +
+                "présent");
         matrice[indices.get(source)][indices.get(destination)] = valeur;
     }
 
     @Override
-    public void oterSommet(String noeud)
-            throws IllegalArgumentException {
-        if (!indices.containsKey(noeud)) {
-            throw new IllegalArgumentException("Sommet inexistant.");
+    public void oterSommet(String noeud) {
+        if (indices.containsKey(noeud)) {
+            int removeAfter = indices.get(noeud);
+            indices.remove(noeud);
+
+            indices.forEach((sommet, valeur) -> {
+                if (valeur > removeAfter) valeur--;
+            });
+
+            for (int[] line : matrice) {
+                System.arraycopy(line, removeAfter, line, removeAfter, line.length - removeAfter);
+            }
         }
-
-        int removeAfter = indices.get(noeud);
-        indices.remove(noeud);
-
-        indices.forEach((sommet, valeur) -> {
-            if (valeur > removeAfter) valeur--;
-        });
-
-        for (int[] line : matrice) {
-            System.arraycopy(line, removeAfter, line, removeAfter, line.length - removeAfter);
-        }
-
     }
 
     @Override
     public void oterArc(String source, String destination)
             throws IllegalArgumentException {
-        int src = indices.get(source), dest = indices.get(destination);
-        if (matrice[src][dest] == 0) throw new IllegalArgumentException("N'existe pas");
-        matrice[src][dest] = 0;
+        try {
+            int src = indices.get(source), dest = indices.get(destination);
+            matrice[src][dest] = 0;
+        } catch (NullPointerException NPE) {
+            throw new IllegalArgumentException("Sommets inexistants");
+        }
     }
 
     @Override
