@@ -24,4 +24,23 @@ public class Arc {
         this.destination = destination;
         this.valuation = valuation;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Arc arc2 = (Arc) obj;
+        return ((this.destination.equals(arc2.destination)) && (this.source.equals(arc2.source)));
+        //&& (this.valuation == arc2.valuation)); // TODO : Rémi : a verifier
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append(source);
+        sb.append("-");
+        sb.append(destination);
+        sb.append("(");
+        sb.append(valuation);
+        sb.append(")");
+        return sb.toString();
+    }
 }
