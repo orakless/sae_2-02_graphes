@@ -67,7 +67,7 @@ public class GrapheMAdj implements IGraphe {
 
     @Override
     public List<String> getSommets() {
-        return indices.keySet().stream().toList();
+        return new ArrayList<>(indices.keySet());
     }
 
 
