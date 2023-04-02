@@ -26,8 +26,14 @@ class IGrapheTest {
 
 	@Test
 	void exo3_1Maths() {
-		IGraphe gla = new GrapheLAdj(g31);
-		tester3_1(gla);
+		IGraphe gHHAdj = new GrapheHHAdj(g31);
+		tester3_1(gHHAdj);
+		IGraphe gMAdj = new GrapheMAdj(g31);
+		tester3_1(gMAdj);
+		IGraphe gLAdj = new GrapheLAdj(g31);
+		tester3_1(gLAdj);
+		//IGraphe gLArcs = new GrapheLArcs(g31);
+		//tester3_1(gLArcs);
 	}
 
 	void tester3_1(IGraphe g) {
