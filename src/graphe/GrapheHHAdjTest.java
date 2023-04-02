@@ -46,6 +46,9 @@ class GrapheHHAdjTest {
         assertEquals(sommets, g.getSommets());
         sommets.remove(0);
         assertNotEquals(sommets, g.getSommets());
+        IGraphe g2 = new GrapheHHAdj("A:");
+        g2.oterSommet("A");
+        assertEquals(new ArrayList<String>(), g2.getSommets());
     }
 
     @Test
