@@ -16,7 +16,6 @@ public GrapheHHAdj(String graph){
 
     @Override
     public void ajouterSommet(String noeud) {
-
     this.hhadj.putIfAbsent(noeud,new HashMap<>());
     }
 
@@ -25,12 +24,12 @@ public GrapheHHAdj(String graph){
     throws IllegalArgumentException {
         if (this.hhadj.containsKey(source)){
             Map<String , Integer> interieur= this.hhadj.get(source);
-            if (interieur.containsKey(destination)){
-                int value = interieur.get(destination);
-                if (value <0){
+            if (!interieur.containsKey(destination)){
+                if (valeur <0){
                     throw new IllegalArgumentException("Valeur négative.");
                 }
             }
+            else throw new IllegalArgumentException("Arc existe");
         }
         Map<String, Integer> Map = this.hhadj.getOrDefault(source,new HashMap<>());
         Map.put(destination,valeur);
@@ -39,18 +38,17 @@ public GrapheHHAdj(String graph){
     }
 
     @Override
-    public void oterSommet(String noeud)
-    throws IllegalArgumentException {
-    if (!this.hhadj.containsKey(noeud)) {
-        throw new IllegalArgumentException("Sommet inexistant.");
+    public void oterSommet(String noeud) {
+    if (this.hhadj.containsKey(noeud)) {
+        this.hhadj.remove(noeud);
     }
-    this.hhadj.remove(noeud);
-
 }
 
     @Override
     public void oterArc(String source, String destination)throws IllegalArgumentException {
-        if (!this.hhadj.get(source).containsKey(destination)) throw new IllegalArgumentException("N'existe pas");
+        Map<String , Integer> interieur= this.hhadj.get(source);
+        if (interieur == null || !interieur.containsKey(destination))
+            throw new IllegalArgumentException("Arc existe pas");
         oterSommet(source);
         oterSommet(destination);
     }
