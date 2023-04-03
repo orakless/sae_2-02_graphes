@@ -20,18 +20,13 @@ public GrapheHHAdj(String graph){
     }
 
     @Override
-    public void ajouterArc(String source, String destination, Integer valeur)
-    throws IllegalArgumentException {
+    public void ajouterArc(String source, String destination, Integer valeur) throws IllegalArgumentException {
         if (this.hhadj.containsKey(source)){
-            Map<String , Integer> interieur= this.hhadj.get(source);
-            if (!interieur.containsKey(destination)){
-                if (valeur <0){
+            if (!this.hhadj.get(source).containsKey(destination)){
+                if (valeur <=0){
                     throw new IllegalArgumentException("Valeur négative.");
                 }
-
-                Map<String, Integer> Map = this.hhadj.getOrDefault(source,new HashMap<>());
-                Map.put(destination,valeur);
-                this.hhadj.put(source,Map);
+                this.hhadj.get(source).put(destination,valeur);
             }
             else throw new IllegalArgumentException("Arc existe");
         }
@@ -49,8 +44,7 @@ public GrapheHHAdj(String graph){
         Map<String , Integer> interieur= this.hhadj.get(source);
         if (interieur == null || !interieur.containsKey(destination))
             throw new IllegalArgumentException("Arc existe pas");
-        oterSommet(source);
-        oterSommet(destination);
+        this.hhadj.get(source).remove(destination);
     }
 
     @Override
@@ -69,26 +63,17 @@ public GrapheHHAdj(String graph){
 
     @Override
     public int getValuation(String src, String dest) {
-        int valuation = 0;
-        valuation=  this.hhadj.get(src).get(dest);
-        return valuation;
+        return this.hhadj.get(src).get(dest);
     }
 
     @Override
     public boolean contientSommet(String sommet) {
-    if (this.hhadj.containsKey(sommet))
-        return true;
-    else if (this.hhadj.values().contains(sommet)) {
-        return  true;
-    }
-        return false;
+    return this.hhadj.containsKey(sommet);
     }
 
     @Override
     public boolean contientArc(String src, String dest) {
-    if (this.hhadj.containsKey(src)&& this.hhadj.get(src).containsKey(dest))
-        return true;
-    return false;
+    return this.hhadj.containsKey(src)&& this.hhadj.get(src).containsKey(dest);
     }
 
     public String toString(){
