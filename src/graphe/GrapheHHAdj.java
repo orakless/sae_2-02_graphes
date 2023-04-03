@@ -28,13 +28,13 @@ public GrapheHHAdj(String graph){
                 if (valeur <0){
                     throw new IllegalArgumentException("Valeur négative.");
                 }
+
+                Map<String, Integer> Map = this.hhadj.getOrDefault(source,new HashMap<>());
+                Map.put(destination,valeur);
+                this.hhadj.put(source,Map);
             }
             else throw new IllegalArgumentException("Arc existe");
         }
-        Map<String, Integer> Map = this.hhadj.getOrDefault(source,new HashMap<>());
-        Map.put(destination,valeur);
-        this.hhadj.put(source,Map);
-
     }
 
     @Override
