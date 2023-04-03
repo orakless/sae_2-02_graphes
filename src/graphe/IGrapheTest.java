@@ -24,8 +24,29 @@ class IGrapheTest {
 					+ "I-H(10), "
 					+ "J:";
 
+	private String g31a = ""       // melangee
+			+ "D-C(5), D-E(3), D-B(3), "
+			+ "E-G(3), E-C(1), E-H(7), "
+			+ "I-H(10), "
+			+ "J:,"
+			+ "G-B(2), G-F(1), "
+			+ "F:, "
+			+ "H-G(2), H-F(4), "
+			+ "A-C(2), A-D(1), "
+			+ "B-G(3), "
+			+ "C-H(2) "
+			;
+
 	@Test
 	void exo3_1Maths() {
+		GrapheLAdj gla = new GrapheLAdj(g31a); // on cree le graphe sans ordre particulier
+		tester3_1(gla);
+
+		GrapheLAdj gladja = new GrapheLAdj(g31a);
+		tester3_1(gladja);
+	}
+	@Test
+	void exo3_1Maths_modif() {
 		IGraphe gHHAdj = new GrapheHHAdj(g31);
 		tester3_1(gHHAdj);
 		IGraphe gMAdj = new GrapheMAdj(g31);
@@ -34,13 +55,21 @@ class IGrapheTest {
 		tester3_1(gLAdj);
 		//IGraphe gLArcs = new GrapheLArcs(g31);
 		//tester3_1(gLArcs);
+		IGraphe gHHAdja = new GrapheHHAdj(g31a);
+		tester3_1(gHHAdja);
+		IGraphe gMAdja = new GrapheMAdj(g31a);
+		tester3_1(gMAdja);
+		IGraphe gLAdja = new GrapheLAdj(g31a);
+		tester3_1(gLAdja);
+		//IGraphe gLArcsa = new GrapheLArcs(g31a);
+		//tester3_1(gLArcsa);
 	}
 
 	void tester3_1(IGraphe g) {
-		List<String> sommets_exp = List.of("A","B","C","D","E","F","G","H","I", "J");
+		List<String> sommets_exp = List.of("A","B","C","D","E","F","G","H","I","J");
 		List<String> sommets = new ArrayList<String>(g.getSommets()); // pas forcement triee
 		Collections.sort(sommets);
-		assertEquals(sommets_exp, g.getSommets());
+		assertEquals(sommets_exp, sommets);
 		assertTrue(g.contientSommet("C"));
 		assertFalse(g.contientSommet("c"));
 		assertTrue(g.contientArc("C","H"));

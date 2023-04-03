@@ -164,7 +164,8 @@ public class GrapheLAdj implements IGraphe {
         boolean first = true;
         final StringBuilder sb = new StringBuilder();
         for (String sommet : this.ladj.keySet()) {
-            //TODO tri ?
+            Comparator<Arc> comparator = Comparator.comparing(Arc::toString);
+            Collections.sort(this.ladj.get(sommet), comparator);
             if(this.ladj.get(sommet).isEmpty()){
                 if(!first){
                     sb.append(", ");
