@@ -21,15 +21,19 @@ public GrapheHHAdj(String graph){
 
     @Override
     public void ajouterArc(String source, String destination, Integer valeur) throws IllegalArgumentException {
-        if (this.hhadj.containsKey(source)){
-            if (!this.hhadj.get(source).containsKey(destination)){
-                if (valeur <=0){
-                    throw new IllegalArgumentException("Valeur négative.");
-                }
-                this.hhadj.get(source).put(destination,valeur);
-            }
-            else throw new IllegalArgumentException("Arc existe");
+        if (!this.hhadj.containsKey(source)){
+            ajouterSommet(source);
         }
+        if (!this.hhadj.containsKey(destination)){
+            ajouterSommet(destination);
+        }
+        if (!this.hhadj.get(source).containsKey(destination)){
+            if (valeur < 0){
+                throw new IllegalArgumentException("Valeur négative.");
+            }
+            this.hhadj.get(source).put(destination,valeur);
+        }
+        else throw new IllegalArgumentException("Arc existe");
     }
 
     @Override
