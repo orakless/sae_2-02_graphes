@@ -3,6 +3,7 @@
 
 Manipulation de graphes. Projet de 4 élèves du groupe 103.
 Chargé de TP: [Camille KURTZ](https://github.com/ckurtz)
+Le SDK utilisé est OpenJDK 19. Notre projet est donc écrit pour fonctionner avec Java 19, et pourrait donc ne pas fonctionner sur d'autres versions de Java
 
 ## Auteurs
 
