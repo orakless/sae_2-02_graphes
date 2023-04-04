@@ -18,6 +18,9 @@ public class GrapheMAdj implements IGraphe {
         if (!indices.containsKey(noeud)) {
             if (matrice.length <= indices.size() + 1) {
                 int[][] newMatrice = new int[indices.size() + step][indices.size() + step];
+                for (int i = 0; i < newMatrice.length; i++)
+                    Arrays.fill(newMatrice[i], matrice.length, newMatrice.length, -1);
+
                 for (int i = 0; i < matrice.length; i++) {
                     System.arraycopy(matrice[i], 0, newMatrice[i], 0, matrice[i].length);
                 }
