@@ -67,7 +67,7 @@ public class GrapheLAdj implements IGraphe {
     @Override
     public void ajouterSommet(String noeud) {
         if (!this.ladj.containsKey(noeud)){
-            this.ladj.put(noeud, new ArrayList<Arc>());
+            this.ladj.put(noeud, new ArrayList<>());
         }
     }
 
@@ -86,9 +86,16 @@ public class GrapheLAdj implements IGraphe {
     }
 
     @Override
-    public void oterSommet(String noeud) {
-        if(this.ladj.containsKey(noeud)){
-            this.ladj.remove(noeud);
+    public void oterSommet(String sommetASuppr) {
+        if(this.ladj.containsKey(sommetASuppr)){
+            this.ladj.remove(sommetASuppr);
+        }
+        for (String sommet : this.ladj.keySet()) {
+            for (int i = 0; i < ladj.get(sommet).size(); i++) {
+                if (ladj.get(sommet).get(i).getDestination().equals(sommetASuppr)) {
+                    oterArc(sommet, sommetASuppr);
+                }
+            }
         }
     }
 
@@ -107,8 +114,7 @@ public class GrapheLAdj implements IGraphe {
 
     @Override
     public List<String> getSommets() {
-        ArrayList<String> listeRetour = new ArrayList<>();
-        listeRetour.addAll(this.ladj.keySet());
+        ArrayList<String> listeRetour = new ArrayList<>(this.ladj.keySet());
         for(String sommet : this.ladj.keySet()) {
             for(Arc arc : this.ladj.get(sommet)) {
                 if(!listeRetour.contains(arc.getDestination())){
@@ -165,17 +171,18 @@ public class GrapheLAdj implements IGraphe {
         final StringBuilder sb = new StringBuilder();
         for (String sommet : this.ladj.keySet()) {
             Comparator<Arc> comparator = Comparator.comparing(Arc::toString);
-            Collections.sort(this.ladj.get(sommet), comparator);
-            if(this.ladj.get(sommet).isEmpty()){
+            ArrayList<Arc> arcsDuSommet = (ArrayList<Arc>) this.ladj.get(sommet);
+            arcsDuSommet.sort(comparator);
+            if(arcsDuSommet.isEmpty()){
                 if(!first){
                     sb.append(", ");
                 }
                 else {
                     first = false;
                 }
-                sb.append(sommet + ":");
+                sb.append(sommet).append(":");
             }
-            for (Arc arc : this.ladj.get(sommet)) {
+            for (Arc arc : arcsDuSommet) {
                 if(!first){
                     sb.append(", ");
                 }
