@@ -10,12 +10,16 @@ private Map<String, Map<String , Integer>> hhadj;
 
 
 public GrapheHHAdj(String graph){
-    this.hhadj = new HashMap<>();
+    this.hhadj = new TreeMap<>();
     this.peupler(graph);
 }
+    public GrapheHHAdj(){
+        this.hhadj = new TreeMap<>();
+    }
 
     @Override
     public void ajouterSommet(String noeud) {
+
     this.hhadj.putIfAbsent(noeud,new HashMap<>());
     }
 
@@ -38,10 +42,10 @@ public GrapheHHAdj(String graph){
 
     @Override
     public void oterSommet(String noeud) {
-    if (this.hhadj.containsKey(noeud)) {
-        this.hhadj.remove(noeud);
+        if (this.hhadj.containsKey(noeud)) {
+            this.hhadj.remove(noeud);
+        }
     }
-}
 
     @Override
     public void oterArc(String source, String destination)throws IllegalArgumentException {
@@ -51,9 +55,10 @@ public GrapheHHAdj(String graph){
         this.hhadj.get(source).remove(destination);
     }
 
+
     @Override
     public List<String> getSommets() {
-    List<String> l_sommet = new ArrayList<>();
+        List<String> l_sommet = new ArrayList<>();
         this.hhadj.forEach((key, value) -> l_sommet.add((String) key));
         return l_sommet;
     }
@@ -72,28 +77,28 @@ public GrapheHHAdj(String graph){
 
     @Override
     public boolean contientSommet(String sommet) {
-    return this.hhadj.containsKey(sommet);
+        return this.hhadj.containsKey(sommet);
     }
 
     @Override
     public boolean contientArc(String src, String dest) {
-    return this.hhadj.containsKey(src)&& this.hhadj.get(src).containsKey(dest);
+        return this.hhadj.containsKey(src)&& this.hhadj.get(src).containsKey(dest);
     }
 
     public String toString(){
-    String s ="";
-    int index =0;
+        String s ="";
+        int index =0;
         for (Entry<String, Map<String, Integer>> entry : this.hhadj.entrySet()) {
-            Map<String,Integer> Inner =  entry.getValue();
+            Map<String,Integer> Inner =  new TreeMap<>(entry.getValue());
             if (Inner.size()==0){
                 s+=entry.getKey()+":";
                 if (index!=this.hhadj.size()-1)
                     s+=", ";
             }
-        for (Entry<String,Integer> entry2 : Inner.entrySet()) {
+            for (Entry<String,Integer> entry2 : Inner.entrySet()) {
                 s += entry.getKey() + "-" + entry2.getKey() + "(" + entry2.getValue() + ")";
-            if (index!=this.hhadj.size()-1)
-                s+=", ";
+                if (index!=this.hhadj.size()-1)
+                    s+=", ";
             }
             ++index;
         }
