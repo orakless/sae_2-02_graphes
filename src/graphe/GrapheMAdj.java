@@ -13,6 +13,11 @@ public class GrapheMAdj implements IGraphe {
         this.peupler(graph);
     }
 
+    public GrapheMAdj() {
+        matrice = new int[0][0];
+        this.indices = new TreeMap<>();
+    }
+
     @Override
     public void ajouterSommet(String noeud) {
         if (!indices.containsKey(noeud)) {
@@ -34,10 +39,10 @@ public class GrapheMAdj implements IGraphe {
             throws IllegalArgumentException {
         if (valeur < 0) throw new IllegalArgumentException("Valeur négative.");
         if (!indices.containsKey(source)) ajouterSommet(source);
-        if (!indices.containsKey(destination)) ajouterSommet(source);
+        if (!indices.containsKey(destination)) ajouterSommet(destination);
         if (matrice[indices.get(source)][indices.get(destination)] > 0) throw new IllegalArgumentException("Arc déjà " +
                 "présent");
-        matrice[indices.get(source)][indices.get(destination)] = valeur;
+        else matrice[indices.get(source)][indices.get(destination)] = valeur;
     }
 
     @Override
