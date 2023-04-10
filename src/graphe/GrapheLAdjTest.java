@@ -29,6 +29,14 @@ class GrapheLAdjTest {
     }
 
     @Test
+    void testToitoine() {
+        GrapheLAdj g = new GrapheLAdj("Z-J(3)");
+        g.oterArc("Z","J");
+        System.out.println(g.toString());
+        assertEquals("J:, Z:", g.toString());
+    }
+
+    @Test
     void testSuccesseurs() {
         GrapheLAdj g = new GrapheLAdj(g31);
         List<String> successeurs = new ArrayList<>();

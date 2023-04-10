@@ -169,7 +169,8 @@ public class GrapheLAdj implements IGraphe {
     public String toString() {
         boolean first = true;
         final StringBuilder sb = new StringBuilder();
-        for (String sommet : this.ladj.keySet()) {
+        SortedSet<String> sommets_tries = new TreeSet<>(this.ladj.keySet());
+        for (String sommet : sommets_tries) {
             Comparator<Arc> comparator = Comparator.comparing(Arc::toString);
             ArrayList<Arc> arcsDuSommet = (ArrayList<Arc>) this.ladj.get(sommet);
             arcsDuSommet.sort(comparator);
