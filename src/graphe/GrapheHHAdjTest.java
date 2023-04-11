@@ -78,7 +78,7 @@ class GrapheHHAdjTest {
         g.ajouterSommet("A"); // ne fait rien car A est deja present
         assertEquals(g31, g.toString());
         assertThrows(IllegalArgumentException.class,
-                () -> g.ajouterArc("G", "B", 1));		// deja present
+                () -> g.ajouterArc("G", "B", 1));       // deja present
         g.oterSommet("X"); // ne fait rien si le sommet n'est pas present
         assertEquals(g31, g.toString());
         assertThrows(IllegalArgumentException.class,

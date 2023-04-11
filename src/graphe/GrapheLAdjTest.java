@@ -32,7 +32,6 @@ class GrapheLAdjTest {
     void testToitoine() {
         GrapheLAdj g = new GrapheLAdj("Z-J(3)");
         g.oterArc("Z","J");
-        System.out.println(g.toString());
         assertEquals("J:, Z:", g.toString());
     }
 
