@@ -73,14 +73,14 @@ public class GrapheLAdj implements IGraphe {
 
     @Override
     public void ajouterArc(String source, String destination, Integer valeur) {
-        if(this.ladj.get(source).contains(new Arc(source, destination, valeur))){
+        if(!this.ladj.containsKey(source)){
+            ajouterSommet(source);
+        }
+        else if(this.ladj.get(source).contains(new Arc(source, destination, valeur))){
             throw new IllegalArgumentException("L'arc que vous essayez d'ajouter existe deja");
         }
         if(valeur < 0){
             throw new IllegalArgumentException("L'arc que vous essayez d'ajouter a une valuation négative");
-        }
-        if(!this.ladj.containsKey(source)){
-            ajouterSommet(source);
         }
         ladj.get(source).add(new Arc(source, destination, valeur));
     }
