@@ -1,6 +1,7 @@
 package graphe;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GrapheLArcs implements IGraphe {
@@ -25,6 +26,7 @@ public class GrapheLArcs implements IGraphe {
                 nodes.add(arc.getSource());
             }
         }
+        Collections.sort(nodes);
         return nodes;
     }
 
