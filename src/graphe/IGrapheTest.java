@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 class IGrapheTest {
 	private IGraphe[] graphes = { 
-			/*new GrapheLArcs(),*/ new GrapheLAdj(),
+			new GrapheLArcs(), new GrapheLAdj(),
 			new GrapheMAdj(), new GrapheHHAdj()
 	};
 	// graphe de l'exercice 3.1 du poly de maths
