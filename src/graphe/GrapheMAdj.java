@@ -7,15 +7,17 @@ public class GrapheMAdj implements IGraphe {
     private int[][] matrice;
     private final Map<String, Integer> indices;
 
-    public GrapheMAdj(String graph) {
-        matrice = new int[0][0];
-        this.indices = new TreeMap<>();
-        this.peupler(graph);
-    }
+    private final int NO_VALUATION = -1;
+
 
     public GrapheMAdj() {
         matrice = new int[0][0];
-        this.indices = new TreeMap<>();
+        this.indices = new HashMap<>();
+    }
+
+    public GrapheMAdj(String graph) {
+        this();
+        this.peupler(graph);
     }
 
     @Override
@@ -26,7 +28,7 @@ public class GrapheMAdj implements IGraphe {
                 for (int i = 0; i < newMatrice.length; i++) {
                     if (i < matrice.length)
                         System.arraycopy(matrice[i], 0, newMatrice[i], 0, matrice[i].length);
-                    Arrays.fill(newMatrice[i], matrice.length, newMatrice.length, -1);
+                    Arrays.fill(newMatrice[i], matrice.length, newMatrice.length, NO_VALUATION);
                 }
                 matrice = newMatrice;
             }
@@ -108,33 +110,6 @@ public class GrapheMAdj implements IGraphe {
 
     @Override
     public String toString() {
-        boolean first = true;
-        final StringBuilder sb = new StringBuilder();
-
-        for (Map.Entry<String, Integer> source : indices.entrySet()) {
-            String srcNom = source.getKey();
-            int srcId = source.getValue();
-            boolean hasArc = false;
-
-            for (Map.Entry<String, Integer> destination : indices.entrySet()) {
-                String destNom = destination.getKey();
-                int destId = destination.getValue();
-
-                if (matrice[srcId][destId] > 0) {
-                    if (!first) sb.append(", ");
-                    else first = false;
-
-                    hasArc = true;
-                    sb.append(srcNom).append("-").append(destNom)
-                            .append("(").append(matrice[srcId][destId]).append(")");
-                }
-            }
-            if (!hasArc) {
-                if (!first) sb.append(", ");
-                else first = false;
-                sb.append(srcNom).append(":");
-            }
-        }
-        return sb.toString();
+        return this.toAString();
     }
 }
