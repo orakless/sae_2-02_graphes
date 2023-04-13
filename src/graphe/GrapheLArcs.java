@@ -15,16 +15,6 @@ public class GrapheLArcs implements IGraphe {
         peupler(input);
     }
 
-    public List<Arc> getIncomingArcs(String node) {
-        List<Arc> incomingArcs = new ArrayList<>();
-        for (Arc arc : this.arcs) {
-            if (arc.getDestination().equals(node)) {
-                incomingArcs.add(arc);
-            }
-        }
-        return incomingArcs;
-    }
-
 	@Override
 	public List<String> getSommets() {
         List<String> nodes = new ArrayList<>();
@@ -57,12 +47,22 @@ public class GrapheLArcs implements IGraphe {
 
 	@Override
 	public boolean contientSommet(String sommet) {
-		return false;
+        for(Arc a : this.arcs){
+            if(a.getSource().equals(sommet) || a.getDestination().equals(sommet)){
+                return true;
+            }
+        }
+        return false;
 	}
 
 	@Override
 	public boolean contientArc(String src, String dest) {
-		return false;
+        for(Arc a : this.arcs){
+            if(a.getSource().equals(src) && a.getDestination().equals(dest)){
+                return true;
+            }
+        }
+        return false;
 	}
 
 	@Override
