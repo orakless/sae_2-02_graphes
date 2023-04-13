@@ -10,11 +10,11 @@ private Map<String, Map<String , Integer>> hhadj;
 
 
 public GrapheHHAdj(String graph){
-    this.hhadj = new TreeMap<>();
+    this.hhadj = new HashMap<>();
     this.peupler(graph);
 }
     public GrapheHHAdj(){
-        this.hhadj = new TreeMap<>();
+        this.hhadj = new HashMap<>();
     }
 
     @Override
@@ -86,22 +86,6 @@ public GrapheHHAdj(String graph){
     }
 
     public String toString(){
-        String s ="";
-        int index =0;
-        for (Entry<String, Map<String, Integer>> entry : this.hhadj.entrySet()) {
-            Map<String,Integer> Inner =  new TreeMap<>(entry.getValue());
-            if (Inner.size()==0){
-                s+=entry.getKey()+":";
-                if (index!=this.hhadj.size()-1)
-                    s+=", ";
-            }
-            for (Entry<String,Integer> entry2 : Inner.entrySet()) {
-                s += entry.getKey() + "-" + entry2.getKey() + "(" + entry2.getValue() + ")";
-                if (index!=this.hhadj.size()-1)
-                    s+=", ";
-            }
-            ++index;
-        }
-        return s ;
+    return toAString();
     }
 }
