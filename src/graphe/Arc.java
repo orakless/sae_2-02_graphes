@@ -29,7 +29,6 @@ public class Arc {
     public boolean equals(Object obj) {
         Arc arc2 = (Arc) obj;
         return ((this.destination.equals(arc2.destination)) && (this.source.equals(arc2.source)));
-        //&& (this.valuation == arc2.valuation)); // TODO : Rémi : a verifier
     }
 
     @Override
