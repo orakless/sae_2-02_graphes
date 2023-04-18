@@ -1,3 +1,0 @@
-Bellman sans circuit
-6
-5 10 11 

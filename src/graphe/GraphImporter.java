@@ -3,35 +3,64 @@ package graphe;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class GraphImporter {
-	public static int importerReponse(String filePath, List<Integer> chemin) throws FileNotFoundException {
-		File file = new File(filePath);
-		try (Scanner sc = new Scanner(file)) {
-			sc.nextLine(); // nom de l'algo recommandé
-			// distance attendue
-			int distance = Integer.parseInt(sc.nextLine().trim());
-			// chemin
-			for (String s : sc.nextLine().split(" "))
-				chemin.add(Integer.parseInt(s) - 1);
-			return distance;
+
+	public static int importerReponse(String nomFichier, List<Integer> listeEntiers) throws IOException {
+		int distance = -1;
+
+		try (Scanner scanner = new Scanner(new File(nomFichier))) {
+			if (!scanner.hasNextLine()) {
+				throw new IOException("Le fichier est vide.");
+			}
+			String premiereLigne = scanner.nextLine();
+
+			if (premiereLigne.startsWith("pas de chemin entre")) {
+				String[] ligneDecoupee = premiereLigne.split(" ");
+				if (ligneDecoupee.length != 7) {
+					throw new IOException("Format incorrect pour la premiere ligne.");
+				}
+				listeEntiers.add(Integer.parseInt(ligneDecoupee[4]));
+				listeEntiers.add(Integer.parseInt(ligneDecoupee[6]));
+			} else {
+				if (!scanner.hasNextLine()) {
+					throw new IOException("Deuxieme ligne non trouvee.");
+				}
+				distance = scanner.nextInt();
+				scanner.nextLine();
+				if (!scanner.hasNextLine()) {
+					throw new IOException("Troisieme ligne non trouvee.");
+				}
+				String troisiemeLigne = scanner.nextLine();
+				List<Integer> tempList = Arrays.stream(troisiemeLigne.split(" "))
+						.map(Integer::parseInt)
+						.collect(Collectors.toList());
+				listeEntiers.addAll(tempList);
+			}
+		} catch (NumberFormatException e) {
+			throw new IOException("Le fichier contient des données mal formatees.", e);
 		}
+
+		return distance;
 	}
 
-	public static Arc importer(String filepath, IGraphe g)  {
-		File file = new File(filepath);
+	public static Arc importer(String filePath, IGraphe g)  {
+		File file = new File(filePath);
 		return importer(file, g);
 	}
 
-	private static Arc importer(File file, IGraphe g)  {
+	public static Arc importer(File file, IGraphe g)  {
 		try (Scanner sc = new Scanner(file)) {
 			String line;
 			if (!sc.hasNextLine()) {
 				throw new IllegalArgumentException("Pas de graphe dans " + file);
 			}
-			line = sc.nextLine(); // non utilisé
+			line = sc.nextLine(); // nom d'algorithme non utilise
 			Arc a = null;
 			while (sc.hasNextLine()) {
 				line = sc.nextLine();
