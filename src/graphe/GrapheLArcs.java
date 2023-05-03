@@ -8,6 +8,7 @@ public class GrapheLArcs implements IGraphe {
     private List<Arc> arcs;
 
     private static final String NULL_STR = "";
+    private static final int NO_VALUATION = -1;
 
     public GrapheLArcs() {
         this.arcs = new ArrayList<>();
@@ -22,7 +23,7 @@ public class GrapheLArcs implements IGraphe {
     public List<String> getSommets() {
         List<String> nodes = new ArrayList<>();
         for (Arc arc : this.arcs) {
-            if (NULL_STR.equals(arc.getDestination()) && arc.getValuation() == -1 ) {
+            if (NULL_STR.equals(arc.getDestination()) && arc.getValuation() == NO_VALUATION ) {
                 nodes.add(arc.getSource());
             }
         }
@@ -34,7 +35,7 @@ public class GrapheLArcs implements IGraphe {
     public List<String> getSucc(String sommet) {
         List<String> outgoingArcs = new ArrayList<>();
         for (Arc arc : this.arcs) {
-            if (sommet.equals(arc.getSource()) && arc.getValuation() != -1) {
+            if (sommet.equals(arc.getSource()) && arc.getValuation() != NO_VALUATION) {
                 outgoingArcs.add(arc.getDestination());
             }
         }
@@ -81,7 +82,7 @@ public class GrapheLArcs implements IGraphe {
     @Override
     public void ajouterSommet(String noeud) {
         if (!contains(noeud, NULL_STR))
-            this.arcs.add(new Arc(noeud, NULL_STR, -1));
+            this.arcs.add(new Arc(noeud, NULL_STR, NO_VALUATION));
     }
 
     @Override
