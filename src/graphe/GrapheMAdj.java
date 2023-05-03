@@ -23,16 +23,18 @@ public class GrapheMAdj implements IGraphe {
     @Override
     public void ajouterSommet(String noeud) {
         if (!indices.containsKey(noeud)) {
-            if (matrice.length <= indices.size() + 1) {
+            indices.put(noeud, indices.size());
+            if (matrice.length < indices.size()) {
                 int[][] newMatrice = new int[indices.size() + step][indices.size() + step];
                 for (int i = 0; i < newMatrice.length; i++) {
-                    if (i < matrice.length)
+                    if (i < matrice.length) {
                         System.arraycopy(matrice[i], 0, newMatrice[i], 0, matrice[i].length);
-                    Arrays.fill(newMatrice[i], matrice.length, newMatrice.length, NO_VALUATION);
+                        Arrays.fill(newMatrice[i], matrice.length, newMatrice.length, NO_VALUATION);
+                    } else Arrays.fill(newMatrice[i], 0, newMatrice.length, NO_VALUATION);
+
                 }
                 matrice = newMatrice;
             }
-            indices.put(noeud, indices.size());
         }
     }
 
@@ -42,8 +44,8 @@ public class GrapheMAdj implements IGraphe {
         if (valeur < 0) throw new IllegalArgumentException("Valeur négative.");
         if (!indices.containsKey(source)) ajouterSommet(source);
         if (!indices.containsKey(destination)) ajouterSommet(destination);
-        if (matrice[indices.get(source)][indices.get(destination)] > 0) throw new IllegalArgumentException("Arc déjà " +
-                "présent");
+        if (matrice[indices.get(source)][indices.get(destination)] != NO_VALUATION)
+            throw new IllegalArgumentException("Arc déjà présent");
         else matrice[indices.get(source)][indices.get(destination)] = valeur;
     }
 
@@ -68,7 +70,7 @@ public class GrapheMAdj implements IGraphe {
             throws IllegalArgumentException {
         try {
             int src = indices.get(source), dest = indices.get(destination);
-            matrice[src][dest] = 0;
+            matrice[src][dest] = NO_VALUATION;
         } catch (NullPointerException NPE) {
             throw new IllegalArgumentException("Sommets inexistants");
         }
@@ -86,7 +88,7 @@ public class GrapheMAdj implements IGraphe {
         final int srcId = indices.get(sommet);
 
         for (Map.Entry<String, Integer> dest : indices.entrySet()) {
-            if (matrice[srcId][dest.getValue()] > 0)
+            if (matrice[srcId][dest.getValue()] != NO_VALUATION)
                 listeDesSucc.add(dest.getKey());
         }
 
@@ -105,7 +107,7 @@ public class GrapheMAdj implements IGraphe {
 
     @Override
     public boolean contientArc(String src, String dest) {
-        return (matrice[indices.get(src)][indices.get(dest)] > 0);
+        return (matrice[indices.get(src)][indices.get(dest)] != NO_VALUATION);
     }
 
     @Override
