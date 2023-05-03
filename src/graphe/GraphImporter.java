@@ -10,45 +10,45 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class GraphImporter {
-
+	
 	public static int importerReponse(String nomFichier, List<Integer> listeEntiers) throws IOException {
-		int distance = -1;
+        int distance = -1;
 
-		try (Scanner scanner = new Scanner(new File(nomFichier))) {
-			if (!scanner.hasNextLine()) {
-				throw new IOException("Le fichier est vide.");
-			}
-			String premiereLigne = scanner.nextLine();
+        try (Scanner scanner = new Scanner(new File(nomFichier))) {
+            if (!scanner.hasNextLine()) {
+                throw new IOException("Le fichier est vide.");
+            }
+            String premiereLigne = scanner.nextLine();
 
-			if (premiereLigne.startsWith("pas de chemin entre")) {
-				String[] ligneDecoupee = premiereLigne.split(" ");
-				if (ligneDecoupee.length != 7) {
-					throw new IOException("Format incorrect pour la premiere ligne.");
-				}
-				listeEntiers.add(Integer.parseInt(ligneDecoupee[4]));
-				listeEntiers.add(Integer.parseInt(ligneDecoupee[6]));
-			} else {
-				if (!scanner.hasNextLine()) {
-					throw new IOException("Deuxieme ligne non trouvee.");
-				}
-				distance = scanner.nextInt();
-				scanner.nextLine();
-				if (!scanner.hasNextLine()) {
-					throw new IOException("Troisieme ligne non trouvee.");
-				}
-				String troisiemeLigne = scanner.nextLine();
-				List<Integer> tempList = Arrays.stream(troisiemeLigne.split(" "))
-						.map(Integer::parseInt)
-						.collect(Collectors.toList());
-				listeEntiers.addAll(tempList);
-			}
-		} catch (NumberFormatException e) {
-			throw new IOException("Le fichier contient des données mal formatees.", e);
-		}
+            if (premiereLigne.startsWith("pas de chemin entre")) {
+                String[] ligneDecoupee = premiereLigne.split(" ");
+                if (ligneDecoupee.length != 7) {
+                    throw new IOException("Format incorrect pour la premiere ligne.");
+                }
+                listeEntiers.add(Integer.parseInt(ligneDecoupee[4]));
+                listeEntiers.add(Integer.parseInt(ligneDecoupee[6]));
+            } else {
+                if (!scanner.hasNextLine()) {
+                    throw new IOException("Deuxieme ligne non trouvee.");
+                }
+                distance = scanner.nextInt();
+                scanner.nextLine(); 
+                if (!scanner.hasNextLine()) {
+                    throw new IOException("Troisieme ligne non trouvee.");
+                }
+                String troisiemeLigne = scanner.nextLine();
+                List<Integer> tempList = Arrays.stream(troisiemeLigne.split(" "))
+                                               .map(Integer::parseInt)
+                                               .collect(Collectors.toList());
+                listeEntiers.addAll(tempList);
+            }
+        } catch (NumberFormatException e) {
+            throw new IOException("Le fichier contient des données mal formatees.", e);
+        }
 
-		return distance;
-	}
-
+        return distance;
+    }
+	
 	public static Arc importer(String filePath, IGraphe g)  {
 		File file = new File(filePath);
 		return importer(file, g);
@@ -81,6 +81,14 @@ public class GraphImporter {
 		String source;
 		int valuation;
 		String destination;
+		if (parts.length == 2) { // derniere ligne 
+			String[] newParts = new String[3];
+			newParts[0] = parts[0];
+			newParts[1] = "00";
+			newParts[2] = parts[1];
+			parts = newParts;
+		}
+			
 		try {
 			source = parts[0];
 			valuation = Integer.valueOf(parts[1]);
