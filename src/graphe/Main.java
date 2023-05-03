@@ -11,9 +11,10 @@ import Dijkstra.Dijkstra;
 
 public class Main {
 	private static final IGraphe[] implems = { 
-     		new GrapheLArcs(), new GrapheLAdj(),
+    //  	new GrapheLArcs(),
+            new GrapheLAdj(),
 	//		new GrapheMAdj(),
-            new GrapheHHAdj()
+    //      new GrapheHHAdj()
 	};
 
 

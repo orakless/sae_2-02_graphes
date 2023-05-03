@@ -129,6 +129,9 @@ public class GrapheLAdj implements IGraphe {
     @Override
     public List<String> getSucc(String sommet) {
         List<String> listeDesSucc = new ArrayList<>();
+        if(ladj.get(sommet) == null){
+            return listeDesSucc;
+        }
         for (Arc arc : ladj.get(sommet)) {
             listeDesSucc.add(arc.getDestination());
         }

@@ -124,7 +124,7 @@ class IGrapheTest {
                 Path file1 = iterator1.next();
                 Path file2 = iterator2.next();
 
-                IGraphe g = new GrapheMAdj();
+                IGraphe g = new GrapheLAdj();
                 Arc arc = GraphImporter.importer(file1.toFile(), g);
 
                 List<Integer> listeEntiers = new ArrayList<>();
