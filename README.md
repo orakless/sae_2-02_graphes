@@ -20,3 +20,7 @@ Nous nous sommes conjointement répartis les différents types de graphe à impl
 - **Rémi** se charge des graphes représentés par une liste d'adjacence ([GrapheLAdj.java](src/graphe/GrapheLAdj.java))
 - **Eva** se charge des graphes représentés par une matrice d'adjacence ([GrapheMAdj.java](src/graphe/GrapheMAdj.java))
 - **Mya** se charge des graphes représentés par une liste d'arcs ([GrapheLArc.java](src/graphe/GrapheLArcs.java))
+
+
+## Crédits
+- **Keith Schwartz** pour l'[implémentation du tas de Fibonacci](https://keithschwarz.com/interesting/code/?dir=fibonacci-heap). Son code a été modifié dans le projet (remplacement des `double` par des `int`)

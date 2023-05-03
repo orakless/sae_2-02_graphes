@@ -1,55 +1,42 @@
 package Dijkstra;
 
 import graphe.IGrapheConst;
-
+import fibonacciHeap.FibonacciHeap;
 import java.util.*;
 
 public class Dijkstra {
-
-    private static String getMinDist(String source, Map<String, Integer> dist, List<String> remaining) {
-        int min = Integer.MAX_VALUE;
-        String minSommet = source;
-
-        for (String sommet: remaining) {
-            if (min > dist.get(sommet) && dist.get(sommet) != -1) {
-                min = dist.get(sommet);
-                minSommet = sommet;
-            }
-        }
-
-        return minSommet;
-    }
-
-    private static void plusCourtChemin(IGrapheConst graphe, String source, String dest, Map<String, Integer> dist, Map<String, String> pred) {
-        int res = (dist.get(source)+graphe.getValuation(source, dest));
-        if (res < dist.get(dest) || dist.get(dest) == -1) {
-            dist.replace(dest, res);
-            pred.replace(dest, source);
-        }
-    }
     public static void dijkstra(IGrapheConst graphe, String source, Map<String, Integer> dist, Map<String, String> pred) {
-        List<String> sommetsRestants = new ArrayList<>();
-
-        pred.put(source, ""); // Pas de prédécesseur pour le sommet d'origine
-        dist.put(source, 0);
-        sommetsRestants.add(source);
+        FibonacciHeap<String> sommetsRestants = new FibonacciHeap<>();
+        Map<String, FibonacciHeap.Entry<String>> entries = new HashMap<>();
 
         for (String sommet: graphe.getSommets()) {
-            if (!sommet.equals(source)) {
-                dist.put(sommet, -1);
-                pred.put(sommet, "");
-                sommetsRestants.add(sommet);
-            }
+            entries.put(sommet, sommetsRestants.enqueue(sommet, Integer.MAX_VALUE));
         }
-
-        String currentSommet = source;
+        sommetsRestants.decreaseKey(entries.get(source), 0);
 
         while (!sommetsRestants.isEmpty()) {
-            currentSommet = getMinDist(currentSommet, dist, sommetsRestants);
-            sommetsRestants.remove(currentSommet);
+            FibonacciHeap.Entry<String> currentSommet = sommetsRestants.dequeueMin();
 
-            for (String succ: graphe.getSucc(currentSommet)) {
-                plusCourtChemin(graphe, currentSommet, succ, dist, pred);
+            // Si il n'y a pas de chemin (donc, que c'est égal à Integer.MAX_VALUE), mettre la valeur dans dist à -1
+            // et passer
+            if (currentSommet.getPriority() == Integer.MAX_VALUE) {
+                dist.put(currentSommet.getValue(), -1); continue;
+            }
+
+            dist.put(currentSommet.getValue(), currentSommet.getPriority());
+
+            for (String succ: graphe.getSucc(currentSommet.getValue())) {
+                if (dist.containsKey(succ)) continue;
+
+                int alt;
+                if (currentSommet.getPriority() == Integer.MAX_VALUE)
+                    alt = Integer.MAX_VALUE;
+                else alt = currentSommet.getPriority()+graphe.getValuation(currentSommet.getValue(), succ);
+
+                if (alt < entries.get(succ).getPriority()) {
+                    pred.put(succ, currentSommet.getValue());
+                    sommetsRestants.decreaseKey(entries.get(succ), alt);
+                }
             }
         }
     }
