@@ -20,7 +20,7 @@ public class Dijkstra {
             // Si il n'y a pas de chemin (donc, que c'est égal à Integer.MAX_VALUE), mettre la valeur dans dist à -1
             // et passer
             if (currentSommet.getPriority() == Integer.MAX_VALUE) {
-                dist.put(currentSommet.getValue(), -1); continue;
+                continue;
             }
 
             dist.put(currentSommet.getValue(), currentSommet.getPriority());
@@ -40,4 +40,6 @@ public class Dijkstra {
             }
         }
     }
+
+
 }
