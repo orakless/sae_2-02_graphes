@@ -1,4 +1,4 @@
-package graphe;
+package testspersos;
 
 import org.junit.jupiter.api.Test;
 
@@ -7,6 +7,9 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import graphe.implems.GrapheMAdj;
+import graphe.core.*;
 
 class GrapheMAdjTest {
 

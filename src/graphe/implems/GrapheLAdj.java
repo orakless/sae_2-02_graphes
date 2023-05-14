@@ -4,9 +4,10 @@
  * @date 26 mars 2023
  */
 
-package graphe;
+package graphe.implems;
 
 import java.util.*;
+import graphe.core.*;
 
 public class GrapheLAdj implements IGraphe {
     private Map<String, List<Arc>> ladj;

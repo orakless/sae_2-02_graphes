@@ -16,10 +16,10 @@ Le SDK utilisé est OpenJDK 19. Notre projet est donc écrit pour fonctionner av
 
 ### Partie 1
 Nous nous sommes conjointement répartis les différents types de graphe à implémenter.
-- **Ali** se charge des graphes représentés par une table de hachage ([GrapheHHAdj.java](src/graphe/GrapheHHAdj.java))
-- **Rémi** se charge des graphes représentés par une liste d'adjacence ([GrapheLAdj.java](src/graphe/GrapheLAdj.java))
-- **Eva** se charge des graphes représentés par une matrice d'adjacence ([GrapheMAdj.java](src/graphe/GrapheMAdj.java))
-- **Mya** se charge des graphes représentés par une liste d'arcs ([GrapheLArc.java](src/graphe/GrapheLArcs.java))
+- **Ali** se charge des graphes représentés par une table de hachage ([GrapheHHAdj.java](srcOLD/graphe/GrapheHHAdj.java))
+- **Rémi** se charge des graphes représentés par une liste d'adjacence ([GrapheLAdj.java](srcOLD/graphe/GrapheLAdj.java))
+- **Eva** se charge des graphes représentés par une matrice d'adjacence ([GrapheMAdj.java](srcOLD/graphe/GrapheMAdj.java))
+- **Mya** se charge des graphes représentés par une liste d'arcs ([GrapheLArc.java](srcOLD/graphe/GrapheLArcs.java))
 
 
 ## Crédits

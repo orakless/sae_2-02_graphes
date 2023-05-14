@@ -1,8 +1,7 @@
-package graphe;
+package graphe.implems;
 
 import java.util.*;
-
-import static java.util.Map.*;
+import graphe.core.*;
 
 public class GrapheHHAdj implements IGraphe {
 private Map<String, Map<String , Integer>> hhadj;

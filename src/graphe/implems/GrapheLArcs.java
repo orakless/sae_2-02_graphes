@@ -1,8 +1,11 @@
-package graphe;
+package graphe.implems;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import graphe.core.*;
+
 
 public class GrapheLArcs implements IGraphe {
     private List<Arc> arcs;

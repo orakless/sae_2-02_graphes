@@ -1,4 +1,4 @@
-package graphe;
+package testspersos;
 
 import org.junit.jupiter.api.Test;
 
@@ -7,9 +7,12 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class GrapheLArcsTest {
+import graphe.implems.GrapheLAdj;
+import graphe.core.*;
+
+class GrapheLAdjTest {
+
     private final String g31 =
             "A-C(2), A-D(1), "
                     + "B-G(3), "
@@ -24,13 +27,20 @@ public class GrapheLArcsTest {
 
     @Test
     void testToString() {
-        GrapheLArcs g = new GrapheLArcs(g31);
+        GrapheLAdj g = new GrapheLAdj(g31);
         assertEquals(g.toString(), g31);
     }
 
     @Test
+    void testToitoine() {
+        GrapheLAdj g = new GrapheLAdj("Z-J(3)");
+        g.oterArc("Z","J");
+        assertEquals("J:, Z:", g.toString());
+    }
+
+    @Test
     void testSuccesseurs() {
-        GrapheLArcs g = new GrapheLArcs(g31);
+        GrapheLAdj g = new GrapheLAdj(g31);
         List<String> successeurs = new ArrayList<>();
         assertEquals(g.getSucc("F"), successeurs);
         assertNotEquals(g.getSucc("A"), successeurs);
@@ -42,26 +52,26 @@ public class GrapheLArcsTest {
 
     @Test
     void testSommets() {
-        IGraphe g = new GrapheLArcs(g31);
+        IGraphe g = new GrapheLAdj(g31);
         List<String> sommets = new ArrayList<>(List.of(new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"}));
         assertEquals(sommets, g.getSommets());
         sommets.remove(0);
         assertNotEquals(sommets, g.getSommets());
-        IGraphe g2 = new GrapheLArcs("A:");
+        IGraphe g2 = new GrapheLAdj("A:");
         g2.oterSommet("A");
         assertEquals(new ArrayList<String>(), g2.getSommets());
     }
 
     @Test
     void contientArc() {
-        IGraphe g = new GrapheLArcs(g31);
+        IGraphe g = new GrapheLAdj(g31);
         assertTrue(g.contientArc("A", "D"));
         assertFalse(g.contientArc("F", "D"));
     }
 
     @Test
     void testProf() {
-        IGraphe g = new GrapheLArcs(g31);
+        IGraphe g = new GrapheLAdj(g31);
         List<String> sommets_exp = List.of("A","B","C","D","E","F","G","H","I","J");
         List<String> sommets = new ArrayList<>(g.getSommets()); // pas forcement triee
         Collections.sort(sommets);
@@ -88,4 +98,5 @@ public class GrapheLArcsTest {
         assertThrows(IllegalArgumentException.class,
                 () -> g.ajouterArc("A", "B", -1)); // valuation negative
     }
+
 }

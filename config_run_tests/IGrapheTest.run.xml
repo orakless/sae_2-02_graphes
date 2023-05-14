@@ -3,12 +3,12 @@
     <module name="sae_2-02_graphes" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="graphe.*" />
+        <option name="PATTERN" value="graphe.core.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
-    <option name="PACKAGE_NAME" value="graphe" />
-    <option name="MAIN_CLASS_NAME" value="graphe.IGrapheTest" />
+    <option name="PACKAGE_NAME" value="graphe.core" />
+    <option name="MAIN_CLASS_NAME" value="graphe.core.IGrapheTest" />
     <option name="METHOD_NAME" value="" />
     <option name="TEST_OBJECT" value="class" />
     <option name="WORKING_DIRECTORY" value="src/tests" />

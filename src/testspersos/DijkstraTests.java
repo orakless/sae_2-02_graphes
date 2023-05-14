@@ -1,13 +1,15 @@
-package Dijkstra;
+package testspersos;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import graphe.*;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import graphe.core.*;
+import graphe.implems.*;
+import graphe.algos.Dijkstra;
 
 public class DijkstraTests {
 

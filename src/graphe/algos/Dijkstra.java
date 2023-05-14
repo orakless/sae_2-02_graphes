@@ -1,6 +1,6 @@
-package Dijkstra;
+package graphe.algos;
 
-import graphe.IGrapheConst;
+import graphe.core.IGrapheConst;
 import fibonacciHeap.FibonacciHeap;
 import java.util.*;
 

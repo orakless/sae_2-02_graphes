@@ -1,8 +1,11 @@
-package graphe;
+package graphe.implems;
 
 import java.util.*;
 
 import static java.lang.Math.ceil;
+
+import graphe.core.*;
+
 
 public class GrapheMAdj implements IGraphe {
     private int step = 1;
