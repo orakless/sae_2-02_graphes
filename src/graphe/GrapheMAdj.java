@@ -2,13 +2,15 @@ package graphe;
 
 import java.util.*;
 
+import static java.lang.Math.ceil;
+
 public class GrapheMAdj implements IGraphe {
-    private static final int step = 3;
+    private int step = 1;
+    private int realIndiceCount = 0;
     private int[][] matrice;
     private final Map<String, Integer> indices;
 
     private final int NO_VALUATION = -1;
-
 
     public GrapheMAdj() {
         matrice = new int[0][0];
@@ -23,18 +25,33 @@ public class GrapheMAdj implements IGraphe {
     @Override
     public void ajouterSommet(String noeud) {
         if (!indices.containsKey(noeud)) {
-            indices.put(noeud, indices.size());
-            if (matrice.length < indices.size()) {
-                int[][] newMatrice = new int[indices.size() + step][indices.size() + step];
-                for (int i = 0; i < newMatrice.length; i++) {
-                    if (i < matrice.length) {
-                        System.arraycopy(matrice[i], 0, newMatrice[i], 0, matrice[i].length);
-                        Arrays.fill(newMatrice[i], matrice.length, newMatrice.length, NO_VALUATION);
-                    } else Arrays.fill(newMatrice[i], 0, newMatrice.length, NO_VALUATION);
+            indices.put(noeud, null);
+        }
+    }
 
-                }
-                matrice = newMatrice;
+    private int getMaxValue() {
+        int max = -1;
+        for (String val : indices.keySet()) {
+            if (indices.get(val) != null && indices.get(val) > max) {
+                max = indices.get(val);
             }
+        }
+        return max;
+    }
+
+    private void addToGraph(String node) {
+        indices.replace(node, null, getMaxValue()+1);
+        realIndiceCount++;
+        if (matrice.length <= realIndiceCount) {
+            int[][] newMatrice = new int[realIndiceCount + step][realIndiceCount + step];
+            for (int i = 0; i < newMatrice.length; i++) {
+                Arrays.fill(newMatrice[i], 0, newMatrice.length, NO_VALUATION);
+                if (i < matrice.length)
+                    System.arraycopy(matrice[i], 0, newMatrice[i], 0, matrice[i].length);
+            }
+            matrice = newMatrice;
+            System.gc();
+            step = (int) ceil(matrice.length / 10.0);
         }
     }
 
@@ -42,11 +59,20 @@ public class GrapheMAdj implements IGraphe {
     public void ajouterArc(String source, String destination, Integer valeur)
             throws IllegalArgumentException {
         if (valeur < 0) throw new IllegalArgumentException("Valeur négative.");
-        if (!indices.containsKey(source)) ajouterSommet(source);
-        if (!indices.containsKey(destination)) ajouterSommet(destination);
-        if (matrice[indices.get(source)][indices.get(destination)] != NO_VALUATION)
-            throw new IllegalArgumentException("Arc déjà présent");
-        else matrice[indices.get(source)][indices.get(destination)] = valeur;
+
+        ajouterSommet(source);
+        ajouterSommet(destination);
+
+        if (indices.get(source) != null && indices.get(destination) != null) {
+            if (matrice[indices.get(source)][indices.get(destination)] != NO_VALUATION)
+                throw new IllegalArgumentException("Arc déjà présent");
+        } else {
+            if (indices.get(source) == null)
+                addToGraph(source);
+            if (indices.get(destination) == null)
+                addToGraph(destination);
+        }
+        matrice[indices.get(source)][indices.get(destination)] = valeur;
     }
 
     @Override
@@ -85,11 +111,12 @@ public class GrapheMAdj implements IGraphe {
     @Override
     public List<String> getSucc(String sommet) {
         List<String> listeDesSucc = new ArrayList<>();
-        final int srcId = indices.get(sommet);
-
-        for (Map.Entry<String, Integer> dest : indices.entrySet()) {
-            if (matrice[srcId][dest.getValue()] != NO_VALUATION)
-                listeDesSucc.add(dest.getKey());
+        if (indices.get(sommet) != null) {
+            final int srcId = indices.get(sommet);
+            for (Map.Entry<String, Integer> dest : indices.entrySet()) {
+                if (dest.getValue() != null && matrice[srcId][dest.getValue()] != NO_VALUATION)
+                    listeDesSucc.add(dest.getKey());
+            }
         }
 
         return listeDesSucc;
