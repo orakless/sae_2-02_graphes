@@ -6,15 +6,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
-import Dijkstra.Dijkstra;
 
 
 public class Main {
 	private static final IGraphe[] implems = { 
-    //  	new GrapheLArcs(),
-            new GrapheLAdj(),
-	//		new GrapheMAdj(),
-    //      new GrapheHHAdj()
+//			new GrapheLArcs(), new GrapheLAdj(),
+			new GrapheMAdj(),
+            new GrapheHHAdj()
 	};
 
 
@@ -68,7 +66,7 @@ public class Main {
                 Map<String, Integer> dist = new HashMap<>();
                 Map<String, String> prev = new HashMap<>();
                 debut = System.nanoTime();
-                Dijkstra.dijkstra(g, arc.getSource(), dist, prev);
+                Dijkstra.Dijkstra.dijkstra(g, arc.getSource(), dist, prev);
                 fin = System.nanoTime();
                 dureeTotale += (fin - debut);
 //                System.out.println("dijkstra a dure " + (fin - debut)/1000000 + " millisecondes");

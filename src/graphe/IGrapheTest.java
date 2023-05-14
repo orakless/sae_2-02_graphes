@@ -1,23 +1,17 @@
 package graphe;
 
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
-import Dijkstra.Dijkstra;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class IGrapheTest {
 	private final IGraphe[] graphes = { 
@@ -50,7 +44,13 @@ class IGrapheTest {
 			+ "A-C(2), A-D(1), "
 			+ "B-G(3), "
 			+ "C-H(2) ";
-	
+
+	private final String pqk = ""
+			+ "A-B(3),"
+			+ "A-C(1),"
+			+ "C-B(1),";
+
+
 	@Test
 	void exo3_1Maths() {
 		for (IGraphe g : graphes) {
@@ -104,7 +104,47 @@ class IGrapheTest {
 		for (IGraphe g : graphes)
 			petiteImporation(g);	
 	}
-	
+	@Test
+	void PQKiller(){
+		IGraphe g = new GrapheHHAdj();
+		g.peupler(pqk);
+		int distance_attendue = 2;
+		String source = "A";
+		String dest = "B";
+		timeDijkstra(g, source, dest, distance_attendue);
+	}
+
+	void timeDijkstra(IGraphe g, String source, String dest, int distance_attendue) {
+		Map<String, Integer> dist = new HashMap<>();
+		Map<String, String> prev = new HashMap<>();
+		long debut = System.nanoTime();
+		Dijkstra.Dijkstra.dijkstra(g, source, dist, prev);
+		long fin = System.nanoTime();
+		System.out.println("dijkstra a dure " + (fin - debut)/1000000 + " millisecondes");
+
+		// reconstruction d'un plus court chemin
+		List<String> path = new LinkedList<>();
+		String currentNode = dest;
+		while (currentNode != null && !currentNode.equals(source)) {
+			path.add(0, currentNode);
+			currentNode = prev.get(currentNode);
+		}
+
+		// ajouter la source
+		if (currentNode != null && currentNode.equals(source)) {
+			path.add(0, source);
+		}
+
+		if (dist.containsKey(dest)) {
+			int distance_trouvee = dist.get(dest);
+			System.out.println("chemin trouve : <" + String.join(", ", path)+">");
+			System.out.println("Distance trouvee : " + distance_trouvee);
+			assertEquals(distance_attendue, distance_trouvee);
+		} else {
+			System.out.println("Aucun chemin trouve");
+			assertEquals(distance_attendue,-1);
+		}
+	}
 	@Test
 	void importer() throws NumberFormatException, FileNotFoundException {
 		String graphesRep = "graphes"; 
@@ -124,7 +164,7 @@ class IGrapheTest {
                 Path file1 = iterator1.next();
                 Path file2 = iterator2.next();
 
-                IGraphe g = new GrapheLAdj();
+                IGraphe g = new GrapheHHAdj();
                 Arc arc = GraphImporter.importer(file1.toFile(), g);
 
                 List<Integer> listeEntiers = new ArrayList<>();
@@ -139,36 +179,8 @@ class IGrapheTest {
                 	System.out.println("distance attendue : " + distance_attendue);
                 	System.out.println("chemin possible : " + listeEntiers);
                 } else System.out.println("Aucun chemin attendu");
-                
-                Map<String, Integer> dist = new HashMap<>();
-                Map<String, String> prev = new HashMap<>();
-                long debut = System.nanoTime();
-                Dijkstra.dijkstra(g, arc.getSource(), dist, prev);
-                long fin = System.nanoTime();
-                System.out.println("dijkstra a dure " + (fin - debut)/1000000 + " millisecondes");
-                
-                // reconstruction d'un plus court chemin
-                List<String> path = new LinkedList<>();
-                String currentNode = arc.getDestination();
-                while (currentNode != null && !currentNode.equals(arc.getSource())) {
-                    path.add(0, currentNode);
-                    currentNode = prev.get(currentNode);
-                }
 
-                // ajouter la source
-                if (currentNode != null && currentNode.equals(arc.getSource())) {
-                    path.add(0, arc.getSource());
-                }
-
-                if (dist.containsKey(arc.getDestination())) {
-                    int distance_trouvee = dist.get(arc.getDestination());
-                	System.out.println("chemin trouve : <" + String.join(", ", path)+">");
-                	System.out.println("Distance trouvee : " + distance_trouvee);
-                	assertEquals(distance_trouvee, distance_attendue);
-                } else {
-                	System.out.println("Aucun chemin trouve");
-                	assertEquals(-1, distance_attendue);
-                }
+				timeDijkstra(g, arc.getSource(), arc.getDestination(), distance_attendue);
             }
         } catch (IOException e) {
             System.out.println("Erreur lors de l'acces aux dossiers: " + e.getMessage());
