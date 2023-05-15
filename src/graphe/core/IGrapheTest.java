@@ -97,8 +97,11 @@ class IGrapheTest {
 	
 	@Test
 	void petitTestImportation() {
-		for (IGraphe g : graphes)
-			petiteImporation(g, "graphes/orig/g-10-1.txt");
+		for (IGraphe g : graphes) {
+			//petiteImporation(g, "graphes/orig/g-10-1.txt");
+			petiteImporation(g, "graphes/g-10-1.txt");
+			//TODO REMI suppr
+		}
 	}
 
 

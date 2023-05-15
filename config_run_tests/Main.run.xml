@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
-    <option name="MAIN_CLASS_NAME" value="graphe.IHM.Main" />
+    <option name="MAIN_CLASS_NAME" value="graphe.ihm.Main" />
     <module name="sae_2-02_graphes" />
     <option name="WORKING_DIRECTORY" value="src/tests" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="graphe.IHM.*" />
+        <option name="PATTERN" value="graphe.ihm.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
