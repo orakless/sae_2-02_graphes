@@ -1,21 +1,13 @@
 package graphe.algos;
 
-import graphe.IHM.CheminATrouver;
-import graphe.IHM.GraphDirectoryImporter;
-import graphe.IHM.GraphImporter;
-import graphe.IHM.Main;
-import graphe.core.Arc;
+import graphe.ihm.CheminATrouver;
+import graphe.ihm.GraphDirectoryImporter;
+import graphe.ihm.Main;
 import graphe.core.IGraphe;
 import graphe.implems.GrapheHHAdj;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 

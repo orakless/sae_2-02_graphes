@@ -1,21 +1,14 @@
 package graphe.core;
 
 
-import graphe.IHM.GraphImporter;
-import graphe.algos.Dijkstra;
+import graphe.ihm.GraphImporter;
 import graphe.implems.GrapheHHAdj;
 import graphe.implems.GrapheLAdj;
 import graphe.implems.GrapheLArcs;
 import graphe.implems.GrapheMAdj;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -104,12 +97,8 @@ class IGrapheTest {
 	
 	@Test
 	void petitTestImportation() {
-		for (IGraphe g : graphes){
-			//petiteImporation(g, "graphes/orig/g-10-1.txt");
-			petiteImporation(g, "graphes/g-10-1.txt");
-			//TODO remi est passe par la
-		}
-
+		for (IGraphe g : graphes)
+			petiteImporation(g, "graphes/orig/g-10-1.txt");
 	}
 
 
