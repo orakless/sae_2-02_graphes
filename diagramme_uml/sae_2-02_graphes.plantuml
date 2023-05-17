@@ -1,0 +1,76 @@
+@startuml
+!theme reddress-lightblue
+top to bottom direction
+skinparam linetype ortho
+
+package "graphe" #BBBBBB {
+package "graphe.ihm" #DDDDDD {
+class CheminATrouver
+class GraphDirectoryImporter
+class GraphImporter
+class Main
+}
+package "graphe.algos" #DDDDDD {
+class Dijkstra
+class DijkstraTest
+class DijkstraTools
+}
+package "graphe.core" #DDDDDD {
+class Arc
+interface IGraphe << interface >>
+interface IGrapheConst << interface >>
+class IGrapheTest
+}
+package "graphe.implems" #DDDDDD {
+class GrapheHHAdj
+class GrapheLAdj
+class GrapheLArcs
+class GrapheMAdj
+}
+}
+package "fibonacciHeap" #DDDDDD {
+class FibonacciHeap<T>
+}
+
+package "testspersos" #DDDDDD {
+class GraphesTest
+class DijkstraTests
+}
+
+
+CheminATrouver         "1" *-[#595959,plain]-> "sd_arc\n1" Arc
+CheminATrouver         "1" *-[#595959,plain]-> "g\n1" IGraphe
+Dijkstra                -[#595959,dashed]->  FibonacciHeap          : "«create»"
+DijkstraTest            -[#595959,dashed]->  GraphDirectoryImporter : "«create»"
+DijkstraTest            -[#595959,dashed]->  GrapheHHAdj            : "«create»"
+DijkstraTests           -[#595959,dashed]->  GrapheHHAdj            : "«create»"
+DijkstraTests           -[#595959,dashed]->  GrapheLAdj             : "«create»"
+DijkstraTests           -[#595959,dashed]->  GrapheLArcs            : "«create»"
+DijkstraTests           -[#595959,dashed]->  GrapheMAdj             : "«create»"
+DijkstraTests          "1" *-[#595959,plain]-> "graphes\n*" IGraphe
+GraphDirectoryImporter "1" *-[#595959,plain]-> "g\n1" IGraphe
+GraphImporter           -[#595959,dashed]->  Arc                    : "«create»"
+GrapheHHAdj             -[#008200,dashed]-^  IGraphe
+GrapheLAdj              -[#595959,dashed]->  Arc                    : "«create»"
+GrapheLAdj              -[#008200,dashed]-^  IGraphe
+GrapheLArcs             -[#595959,dashed]->  Arc                    : "«create»"
+GrapheLArcs            "1" *-[#595959,plain]-> "arcs\n*" Arc
+GrapheLArcs             -[#008200,dashed]-^  IGraphe
+GrapheMAdj              -[#008200,dashed]-^  IGraphe
+GraphesTest             -[#595959,dashed]->  GrapheHHAdj            : "«create»"
+GraphesTest             -[#595959,dashed]->  GrapheLAdj             : "«create»"
+GraphesTest             -[#595959,dashed]->  GrapheLArcs            : "«create»"
+GraphesTest             -[#595959,dashed]->  GrapheMAdj             : "«create»"
+IGraphe                 -[#008200,plain]-^  IGrapheConst
+IGrapheTest             -[#595959,dashed]->  GrapheHHAdj            : "«create»"
+IGrapheTest             -[#595959,dashed]->  GrapheLAdj             : "«create»"
+IGrapheTest             -[#595959,dashed]->  GrapheLArcs            : "«create»"
+IGrapheTest             -[#595959,dashed]->  GrapheMAdj             : "«create»"
+IGrapheTest            "1" *-[#595959,plain]-> "graphes\n*" IGraphe
+Main                    -[#595959,dashed]->  GraphDirectoryImporter : "«create»"
+Main                    -[#595959,dashed]->  GrapheHHAdj            : "«create»"
+Main                    -[#595959,dashed]->  GrapheLAdj             : "«create»"
+Main                    -[#595959,dashed]->  GrapheLArcs            : "«create»"
+Main                    -[#595959,dashed]->  GrapheMAdj             : "«create»"
+Main                   "1" *-[#595959,plain]-> "prototypes\n*" IGraphe
+@enduml
