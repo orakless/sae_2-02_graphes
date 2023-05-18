@@ -7,9 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class GraphDirectoryImporter implements Iterable<CheminATrouver>{
@@ -21,10 +19,10 @@ public class GraphDirectoryImporter implements Iterable<CheminATrouver>{
     public GraphDirectoryImporter(String graphesRep, String reponsesRep, boolean traceOn, IGraphe g) {
         try {
             fichiersGraphes = Files.list(Paths.get(graphesRep))
-                    .filter(Files::isRegularFile).sorted()
+                    .filter(Files::isRegularFile).sorted(Comparator.reverseOrder())
                     .collect(Collectors.toList());
             fichiersReponses = Files.list(Paths.get(reponsesRep))
-                    .filter(Files::isRegularFile).sorted()
+                    .filter(Files::isRegularFile).sorted(Comparator.reverseOrder())
                     .collect(Collectors.toList());
         }
         catch(IOException e) {
