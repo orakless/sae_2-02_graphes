@@ -30,8 +30,11 @@ Notre implémentation de l'algorithme de Dijkstra passe les tests jusqu'à diff�
 - GrapheLArcs : jusqu'à XX.
 - GrapheMAdj : jusqu'à XX.
 
-### Tests unitaires
+## Tests unitaires
 Nous avons programmé différents tests unitaires, ils sont disponibles dans le paquetage [testspersos](src/testspersos).
+
+## Tests de performance
+Les résulats des tests peuvent etre trouvés sur le fichier [perfs.md](perfs.md).
 
 ## Crédits
 - **Keith Schwartz** pour l'[implémentation du tas de Fibonacci](https://keithschwarz.com/interesting/code/?dir=fibonacci-heap). Son code a été modifié dans le projet (remplacement des `double` par des `int`)
