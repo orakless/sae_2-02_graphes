@@ -4,7 +4,7 @@ import graphe.ihm.CheminATrouver;
 import graphe.ihm.GraphDirectoryImporter;
 import graphe.ihm.Main;
 import graphe.core.IGraphe;
-import graphe.implems.GrapheHHAdj;
+import graphe.implems.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -22,7 +22,7 @@ class DijkstraTest {
     @Test
     void testerTousLesGraphes() {
         GraphDirectoryImporter importer = new GraphDirectoryImporter(Main.GRAPHES_REP,
-                Main.REPONSES_REP, true, new GrapheHHAdj());
+                Main.REPONSES_REP, true, new GrapheMAdj());
         for (CheminATrouver cat : importer) {
             checkAndTime(cat.getGraph(), cat.getSD_arc().getSource(),
                     cat.getSD_arc().getDestination(), cat.getDistance_attendue());
