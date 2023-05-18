@@ -25,16 +25,16 @@ Les 4 classes ont été codées et fonctionnent.
 
 ### Partie 2 : Algorithme du plus court chemin de Dijkstra
 Notre implémentation de l'algorithme de Dijkstra passe les tests jusqu'à différents niveaux en fonction des types de graphes :
-- GrapheHHAdj : Tous les graphes passent les tests.
-- GrapheLAdj : jusqu'à XX.
-- GrapheLArcs : jusqu'à XX.
-- GrapheMAdj : jusqu'à XX.
+- GrapheHHAdj : Tous les graphes passent les tests (jusqu'à 1000000-1 inclus).
+- GrapheLAdj : jusqu'à 100000-1 inclus.
+- GrapheLArcs : jusqu'à 10000-1 inclus.
+- GrapheMAdj : jusqu'à 10000-1 inclus.
 
 ## Tests unitaires
 Nous avons programmé différents tests unitaires, ils sont disponibles dans le paquetage [testspersos](src/testspersos).
 
 ## Tests de performance
-Les résulats des tests peuvent etre trouvés sur le fichier [perfs.md](perfs.md).
+Les résultats des tests peuvent être trouvés sur le fichier [perfs.md](performances/perfs.md).
 
 ## Crédits
 - **Keith Schwartz** pour l'[implémentation du tas de Fibonacci](https://keithschwarz.com/interesting/code/?dir=fibonacci-heap). Son code a été modifié dans le projet (remplacement des `double` par des `int`)
