@@ -85,7 +85,7 @@ public class GrapheMAdj implements IGraphe {
             indices.remove(noeud);
 
             indices.forEach((sommet, valeur) -> {
-                if (valeur > removeAfter) valeur--;
+                if (valeur != null && valeur > removeAfter) valeur--;
             });
 
             for (int[] line : matrice) {
@@ -137,6 +137,7 @@ public class GrapheMAdj implements IGraphe {
 
     @Override
     public boolean contientArc(String src, String dest) {
+        if (indices.getOrDefault(src, null) == null || indices.getOrDefault(dest, null) == null) return false;
         return (matrice[indices.get(src)][indices.get(dest)] != NO_VALUATION);
     }
 
