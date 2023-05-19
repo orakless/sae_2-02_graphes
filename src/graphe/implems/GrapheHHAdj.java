@@ -71,7 +71,7 @@ public GrapheHHAdj(String graph){
 
     @Override
     public int getValuation(String src, String dest) {
-        return this.hhadj.get(src).get(dest);
+        return this.hhadj.get(src).getOrDefault(dest, -1);
     }
 
     @Override
